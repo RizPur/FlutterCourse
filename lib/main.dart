@@ -1,11 +1,26 @@
 import 'package:flutter/material.dart';
 
-String getFullName(String firstName, String lastName){
-  return firstName + lastName;
-}
 
 void main() {
   runApp(const MyApp());
+}
+
+String getFullName(String firstName, String lastName){
+  return '$firstName $lastName';
+} //test2
+
+void test3(){
+  var names = {'age', 'bar', 'baz'};
+  names.add('foo'); 
+  var person = {
+    "name": "Joel Brown",
+    "age": 25
+  };
+
+  person["age"] = 26;
+  // print(names);
+  const things = {'foo', 1};
+  print(things);
 }
 
 class MyApp extends StatelessWidget {
@@ -14,7 +29,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    print(getFullName('foo', 'bar'));
+    // print(getFullName('foo', 'bar'));
+    test3();
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
