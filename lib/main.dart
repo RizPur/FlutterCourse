@@ -23,6 +23,18 @@ void test3(){
   print(things);
 }
 
+void test5(String? firstName, String? lastName, List<String>? names){
+  // const String? name = null;
+  // print(name);
+
+  // firstName ??= "NoName";
+  // print(firstName);
+  // List<String?>? names = ['Foo', 'Boo', null]; //list of strings Names can be null and can contain strings who can be null
+  final numberOfNames = names?.length ?? 0;//conditional invocation seeing that names can be null and if it is then = 0
+  print(numberOfNames);
+
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -30,7 +42,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // print(getFullName('foo', 'bar'));
-    test3();
+    test5(null, null, ['Test']);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
