@@ -24,15 +24,86 @@ void test3(){
 }
 
 void test5(String? firstName, String? lastName, List<String>? names){
-  // const String? name = null;
-  // print(name);
+  const String? name = null;
+  print(name);
 
-  // firstName ??= "NoName";
-  // print(firstName);
-  // List<String?>? names = ['Foo', 'Boo', null]; //list of strings Names can be null and can contain strings who can be null
+  firstName ??= "NoName";
+  print(firstName);
+  List<String?>? names = ['Foo', 'Boo', null]; //list of strings Names can be null and can contain strings who can be null
   final numberOfNames = names?.length ?? 0;//conditional invocation seeing that names can be null and if it is then = 0
   print(numberOfNames);
 
+}
+
+
+// abstract class Person { // abstract classes cannot be instantioated 
+class Person {
+  final String name;
+  final String role;
+
+  Person(this.name, this.role);
+
+  factory Person.fromRole(String role) {
+    if (role == 'student') {
+      return Student('Student Name');
+    } else if (role == 'teacher') {
+      return Teacher('Teacher Name');
+    }
+    return Person('Default Name', role);
+  }
+
+  @override
+  bool operator == (covariant Person other) => other.name == name;
+  //In this class, the == operator is overridden to compare Person objects based on their name field
+
+  @override
+  int get hashCode => name.hashCode;
+  //When you override ==, it's important to also override the hashCode getter to maintain consistency. This is because objects that are equal (according to ==) should also have the same hash code. This is crucial for using these objects in collections like sets or maps.
+
+  void breathe() {
+    print("$name breathes");
+  }
+
+  void run() {
+    print("$name runs");
+  }
+}
+
+class Student extends Person {
+  Student(String name) : super(name, 'student');
+}
+
+class Teacher extends Person {
+  Teacher(String name) : super(name, 'teacher');
+}
+
+enum AnimalType {cat, dog, rabbit}
+void test6(AnimalType animalType){
+  print(animalType);
+  switch (animalType) {
+    case AnimalType.dog:
+      print("Dog");
+      break;
+    case AnimalType.cat:
+      print("cat");
+      break;
+    default:
+      print("either rabbit or nothing");
+      return;
+  }
+  print("Function is finished");
+
+  final person = Person("Baz", "student");
+  person.run();
+
+  final student = Student("Jas");
+  student.breathe();
+
+  final maas =  Person.fromRole("g");
+  final maas2 = Person.fromRole("f");
+  print(maas.name);
+
+  maas == maas2 ? print("They are equal") : print("They aren't equal");
 }
 
 class MyApp extends StatelessWidget {
@@ -42,7 +113,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // print(getFullName('foo', 'bar'));
-    test5(null, null, ['Test']);
+    // test5(null, null, ['Test']);
+    test6(AnimalType.cat);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
