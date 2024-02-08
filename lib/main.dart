@@ -35,7 +35,7 @@ void test5(String? firstName, String? lastName, List<String>? names){
 
 }
 
-
+ 
 // abstract class Person { // abstract classes cannot be instantioated 
 class Person {
   final String name;
@@ -78,6 +78,7 @@ class Teacher extends Person {
 }
 
 enum AnimalType {cat, dog, rabbit}
+
 void test6(AnimalType animalType){
   print(animalType);
   switch (animalType) {
@@ -106,6 +107,29 @@ void test6(AnimalType animalType){
   maas == maas2 ? print("They are equal") : print("They aren't equal");
 }
 
+
+extension Writes on Teacher { //extensions add functionalities to Class without adding to the class itself
+  void write(){
+    print('Teacher $name is writing');
+  }
+}
+
+class Child {
+  final String firstName;
+  final String lastName;
+
+  Child(this.firstName, this.lastName);
+}
+
+extension FullName on Child {
+  String get fullName => '$firstName $lastName'; //getter 
+}
+
+void test7(){
+  final child = Child("Foo", "Bar");
+  print(child.FullName); //extension
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -114,7 +138,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // print(getFullName('foo', 'bar'));
     // test5(null, null, ['Test']);
-    test6(AnimalType.cat);
+    // test6(AnimalType.cat);
+    test7();
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
