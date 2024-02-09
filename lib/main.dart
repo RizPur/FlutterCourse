@@ -145,6 +145,22 @@ Iterable<int> get123() sync*{
   yield 3;
 } //Generators are functions that allow you to produce sequences of values lazily, 
 //meaning they generate and provide values one at a time and only when needed, rather than all at once
+
+class PairStrings {
+  final String value1;
+  final String value2;
+
+  PairStrings(this.value1, this.value2);
+}
+
+class Pair<A, B> {
+  final A value1;
+  final B value2;
+  Pair(this.value1, this.value2);
+}//Generics are a way to write flexible and reusable code that can work with any data type. 
+//They allow you to define a class, function, or interface that uses types as parameters. 
+
+
 void test7() async{
 
   //Extension
@@ -169,6 +185,9 @@ void test7() async{
       break;
     }
   }
+
+  //Generics
+  final names = Pair('foo', 20);
 }
 
 class MyApp extends StatelessWidget {
