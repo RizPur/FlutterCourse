@@ -133,14 +133,23 @@ Future<double> heavyFutureDivides2(int a){
   return Future.delayed(const Duration(seconds: 4), ()=>a/2);
 }
 
+Stream<String> getName(){
+  // return Stream.value('value');
+  return Stream.periodic(const Duration(seconds: 10), (value)=> "Foo");
+}
+
 void test7() async{
   final child = Child("Foo", "Bar");
   print(child.fullName); //extension
-
   // final result = await heavyFutureTimes2(10); // if no await then it returns the Future itself
   // print(result);
   final result = await Future.wait([heavyFutureTimes2(2), heavyFutureDivides2(2)]); //If you have multiple independent Futures and you want to wait for all of them to complete, you can use Future.wait:
   print('Results: ${result[0]} and ${result[1]}');
+
+  await for (final value in getName()){
+    print(value);
+  }
+  print('Stream finished working');
 }
 
 class MyApp extends StatelessWidget {
