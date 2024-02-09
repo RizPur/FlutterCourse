@@ -125,16 +125,22 @@ extension FullName on Child {
   String get fullName => '$firstName $lastName'; //getter 
 }
 
-Future<int> heavyFutureTimes2(int a){
-  return Future.delayed(const Duration(seconds: 3), () => a*2);
+Future<int> heavyFutureTimes2(int a){ // Future represents a potential value (or error) that will be available at some time in the future
+  return Future.delayed(const Duration(seconds: 2), () => a*2);
+}
+
+Future<double> heavyFutureDivides2(int a){
+  return Future.delayed(const Duration(seconds: 4), ()=>a/2);
 }
 
 void test7() async{
   final child = Child("Foo", "Bar");
   print(child.fullName); //extension
 
-  final result = await heavyFutureTimes2(10);
-  print(result);
+  // final result = await heavyFutureTimes2(10); // if no await then it returns the Future itself
+  // print(result);
+  final result = await Future.wait([heavyFutureTimes2(2), heavyFutureDivides2(2)]); //If you have multiple independent Futures and you want to wait for all of them to complete, you can use Future.wait:
+  print('Results: ${result[0]} and ${result[1]}');
 }
 
 class MyApp extends StatelessWidget {
