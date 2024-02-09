@@ -125,9 +125,16 @@ extension FullName on Child {
   String get fullName => '$firstName $lastName'; //getter 
 }
 
-void test7(){
+Future<int> heavyFutureTimes2(int a){
+  return Future.delayed(const Duration(seconds: 3), () => a*2);
+}
+
+void test7() async{
   final child = Child("Foo", "Bar");
-  print(child.FullName); //extension
+  print(child.fullName); //extension
+
+  final result = await heavyFutureTimes2(10);
+  print(result);
 }
 
 class MyApp extends StatelessWidget {
