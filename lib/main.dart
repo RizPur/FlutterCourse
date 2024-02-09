@@ -136,20 +136,39 @@ Future<double> heavyFutureDivides2(int a){
 Stream<String> getName(){
   // return Stream.value('value');
   return Stream.periodic(const Duration(seconds: 10), (value)=> "Foo");
-}
+} //Streams in Dart provide a way to receive a sequence of data over time. 
+//Unlike Future, which returns a single value asynchronously, a Stream can deliver multiple values over time
 
+Iterable<int> get123() sync*{
+  yield 1;
+  yield 2;
+  yield 3;
+} //Generators are functions that allow you to produce sequences of values lazily, 
+//meaning they generate and provide values one at a time and only when needed, rather than all at once
 void test7() async{
+
+  //Extension
   final child = Child("Foo", "Bar");
-  print(child.fullName); //extension
+  print(child.fullName); 
+
+  //Future
   // final result = await heavyFutureTimes2(10); // if no await then it returns the Future itself
   // print(result);
   final result = await Future.wait([heavyFutureTimes2(2), heavyFutureDivides2(2)]); //If you have multiple independent Futures and you want to wait for all of them to complete, you can use Future.wait:
   print('Results: ${result[0]} and ${result[1]}');
 
-  await for (final value in getName()){
+  //Stream
+  // await for (final value in getName()){
+  //   print(value);
+  // }
+  
+  //Generator
+  for (final value in get123()){
     print(value);
+    if(value == 2){
+      break;
+    }
   }
-  print('Stream finished working');
 }
 
 class MyApp extends StatelessWidget {
